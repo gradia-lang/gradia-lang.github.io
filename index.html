@@ -51,14 +51,15 @@
     </body>
 
     <script>
-        document.getElementById("start").addEventListener("click", function () {
+        document.getElementById("start").onclick = function () {
             const mainSection = document.getElementById("main");
             const newSection = document.getElementById("newSection");
-            const startButton = document.getElementById("start");
+            const startButton = this;
             const duration = 1500;
 
             newSection.classList.remove("hidden");
             startButton.style.cursor = "default";
+            startButton.onclick = null;
 
             anime({
                 targets: newSection,
@@ -96,7 +97,7 @@
                         }
                     }
                 });
-        });
+        };
     </script>
 
     <style>
