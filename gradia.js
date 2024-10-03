@@ -1,12 +1,13 @@
-import init, { run } from "./pkg/gradia_wasm.js";
+import init, { run_gradia, Gradia } from "./pkg/gradia_wasm.js";
 
 init().then(() => {
-  window.run = run;
-  const stackElements = document.getElementsByClassName("gradia");
+  window.run_gradia = run_gradia;
+  window.Gradia = Gradia;
+  const gradiaElements = document.getElementsByClassName("gradia");
 
-  for (let i = 0; i < stackElements.length; i++) {
-    const stackElement = stackElements[i];
-    const code = stackElement.innerText.trim();
-    stackElement.innerHTML = run(code);
+  for (let i = 0; i < gradiaElements.length; i++) {
+    const gradiaElement = gradiaElements[i];
+    const code = gradiaElement.innerText.trim();
+    gradiaElement.innerHTML = run_gradia(code);
   }
 });
