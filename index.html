@@ -13,6 +13,10 @@
             href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
             rel="stylesheet"
         />
+        <script
+            src="https://gradia-lang.github.io/gradia.js"
+            type="module"
+        ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     </head>
 
@@ -24,24 +28,12 @@
                 gradual typing
             </p>
             <button id="start" class="button is-link">Learn more</button>
+
             <div id="newSection">
                 <div class="box">
-                    <p class="subtitle">Sample of Console</p>
-                    <pre><code>Gradia 0.1.0
-> (define '(x2 n) '(* n 2))
-(lambda '(n) '(* n 2))
-> (x2 4)
-8
-> (x2 " 5")
-10
-> (define '(x2 n:number) '(* n 2))
-(lambda '(n:number) '(* n 2))
-> (x2 6)
-12
-> (x2 "7 ")
-Error! the passed argument value `"7 "` is different to expected type `number` of the function
->
-</code></pre>
+                    <p class="subtitle">Playground Console</p>
+                    <input class="input autocomplete-input" id="repl" />
+                    <pre class="hidden"><code id="result"></code></pre>
                 </div>
 
                 <p>
@@ -85,6 +77,21 @@ Error! the passed argument value `"7 "` is different to expected type `number` o
                 duration: duration,
                 easing: "easeInOutQuad",
             });
+
+            let gradia = new Gradia();
+            document
+                .getElementById("repl")
+                .addEventListener("keydown", function (event) {
+                    if (event.key == "Enter") {
+                        let result = gradia.eval(this.value);
+                        if (result != "") {
+                            let elm = document.getElementById("result");
+                            elm.parentElement.classList.remove("hidden");
+                            elm.innerText = result;
+                            this.value = "";
+                        }
+                    }
+                });
         });
     </script>
 
@@ -131,14 +138,19 @@ Error! the passed argument value `"7 "` is different to expected type `number` o
             height: 50%;
         }
 
+        input {
+            font-family: monospace;
+        }
+
         p {
             font-size: x-large;
         }
 
         pre {
+            margin-top: 1vh;
             user-select: text;
             text-align: left;
-            height: 15lh;
+            line-height: 1lvi;
             overflow: hidden;
             cursor: text;
         }
