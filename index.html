@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gradia</title>
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    </head>
+
+    <body>
+        <div id="main">
+            <h1 class="title">Gradia</h1>
+            <p class="subtitle">
+                Lisp like programming language that can give type annotation for
+                gradual typing
+            </p>
+            <button id="start" class="button is-link">Learn more</button>
+            <div id="newSection">
+                <div class="box">
+                    <p class="subtitle">Sample of Console</p>
+                    <pre><code>Gradia 0.1.0
+> (define '(x2 n) '(* n 2))
+(lambda '(n) '(* n 2))
+> (x2 4)
+8
+> (x2 " 5")
+10
+> (define '(x2 n:number) '(* n 2))
+(lambda '(n:number) '(* n 2))
+> (x2 6)
+12
+> (x2 "7 ")
+Error! the passed argument value `"7 "` is different to expected type `number` of the function
+>
+</code></pre>
+                </div>
+
+                <p>
+                    GitHub:
+                    <a href="https://github.com/KajizukaTaichi/gradia"
+                        >https://github.com/KajizukaTaichi/gradia</a
+                    >
+                </p>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        document.getElementById("start").addEventListener("click", function () {
+            const mainSection = document.getElementById("main");
+            const newSection = document.getElementById("newSection");
+            const startButton = document.getElementById("start");
+            const duration = 1500;
+
+            newSection.classList.remove("hidden");
+            startButton.style.cursor = "default";
+
+            anime({
+                targets: newSection,
+                translateY: ["100vh", "0"],
+                opacity: [0, 1],
+                duration: duration,
+                easing: "easeInOutQuad",
+            });
+
+            anime({
+                targets: mainSection,
+                top: ["17vh", "0vh"],
+                duration: duration,
+                easing: "easeInOutQuad",
+            });
+
+            anime({
+                targets: startButton,
+                opacity: [1, 0],
+                duration: duration,
+                easing: "easeInOutQuad",
+            });
+        });
+    </script>
+
+    <style>
+        pre {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 1vh;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 1rem;
+            color: #333;
+        }
+
+        body {
+            overflow: hidden;
+            position: relative;
+            user-select: none;
+            font-family: monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(white, aliceblue);
+        }
+
+        #main {
+            position: absolute;
+            top: 17%;
+            text-align: center;
+            width: 100%;
+            padding: 10%;
+        }
+
+        #newSection {
+            transform: translateY(100vh);
+            background-color: transparent;
+            opacity: 0;
+            height: 50%;
+        }
+
+        p {
+            font-size: x-large;
+        }
+
+        pre {
+            user-select: text;
+            text-align: left;
+            height: 15lh;
+            overflow: hidden;
+            cursor: text;
+        }
+
+        ::selection {
+            background-color: black;
+            color: white;
+        }
+
+        a {
+            cursor: zoom-in;
+        }
+
+        a:hover {
+            color: blueviolet;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .title {
+            font-size: 10vh;
+        }
+    </style>
+</html>
