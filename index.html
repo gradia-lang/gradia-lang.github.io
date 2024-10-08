@@ -91,7 +91,7 @@
                         if (result != "") {
                             let elm = document.getElementById("result");
                             elm.parentElement.classList.remove("hidden");
-                            elm.innerText = result;
+                            elm.innerText = result.replace(/\n/g, " ");
                             this.value = "";
                         }
                     }
