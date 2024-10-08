@@ -32,7 +32,10 @@
             <div id="newSection">
                 <div class="box">
                     <p class="subtitle">Playground Console</p>
-                    <input class="input" id="repl" />
+                    <div id="inputing">
+                        <input class="input" value="" id="repl" />
+                        <button class="button" id="sample">Sample</button>
+                    </div>
                     <pre class="hidden"><code id="result"></code></pre>
                 </div>
 
@@ -47,16 +50,6 @@
     </body>
 
     <script>
-        let array = [
-            "(define '(x2 n) '(* n 2)) (map '(2 4 7) x2)",
-            "(define '(inc i:number) '(+ i 1)) (inc 3)",
-            "(filter (range 10) (lambda '(n) '(= 0 (% n 2))))",
-        ];
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("repl").value =
-                array[Math.floor(Math.random() * array.length)];
-        });
-
         document.getElementById("start").onclick = function () {
             const mainSection = document.getElementById("main");
             const newSection = document.getElementById("newSection");
@@ -102,6 +95,18 @@
                             this.value = "";
                         }
                     }
+                });
+
+            let array = [
+                "(define '(x2 n) '(* n 2)) (map '(2 4 7) x2)",
+                "(define '(inc i:number) '(+ i 1)) (inc 3)",
+                "(filter (range 10) (lambda '(n) '(= 0 (% n 2))))",
+            ];
+            document
+                .getElementById("sample")
+                .addEventListener("click", function () {
+                    document.getElementById("repl").value =
+                        array[Math.floor(Math.random() * array.length)];
                 });
         };
     </script>
@@ -151,6 +156,7 @@
 
         input {
             font-family: monospace;
+            margin-right: 1vh;
         }
 
         p {
@@ -161,8 +167,9 @@
             margin-top: 1vh;
             user-select: text;
             text-align: left;
-            line-height: 1lvi;
-            overflow: hidden;
+            overflow: scroll;
+            height: 1%;
+            max-height: 1%;
             cursor: text;
         }
 
@@ -185,6 +192,10 @@
 
         .title {
             font-size: 10vh;
+        }
+
+        #inputing {
+            display: flex;
         }
     </style>
 </html>
