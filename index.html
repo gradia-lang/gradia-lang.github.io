@@ -32,11 +32,7 @@
             <div id="newSection">
                 <div class="box">
                     <p class="subtitle">Playground Console</p>
-                    <input
-                        class="input"
-                        id="repl"
-                        placeholder="(define '(x2 n) '(* n 2)) (x2 5)"
-                    />
+                    <input class="input" id="repl" />
                     <pre class="hidden"><code id="result"></code></pre>
                 </div>
 
@@ -51,6 +47,16 @@
     </body>
 
     <script>
+        let array = [
+            "(define '(x2 n) '(* n 2)) (map '(2 4 7) x2)",
+            "(define '(inc i:number) '(+ i 1)) (inc 3)",
+            "(filter (range 10) (lambda '(n) '(= 0 (% n 2))))",
+        ];
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("repl").value =
+                array[Math.floor(Math.random() * array.length)];
+        });
+
         document.getElementById("start").onclick = function () {
             const mainSection = document.getElementById("main");
             const newSection = document.getElementById("newSection");
