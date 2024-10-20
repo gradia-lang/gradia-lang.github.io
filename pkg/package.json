@@ -1,12 +1,13 @@
 {
   "name": "gradia-wasm",
+  "type": "module",
   "version": "0.1.0",
   "files": [
     "gradia_wasm_bg.wasm",
     "gradia_wasm.js",
     "gradia_wasm.d.ts"
   ],
-  "module": "gradia_wasm.js",
+  "main": "gradia_wasm.js",
   "types": "gradia_wasm.d.ts",
   "sideEffects": [
     "./snippets/*"
