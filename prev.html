@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gradia</title>
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+            rel="stylesheet"
+        />
+        <script
+            src="https://gradia-lang.github.io/gradia.js"
+            type="module"
+        ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    </head>
+
+    <body>
+        <div id="main">
+            <h1 class="title">Gradia</h1>
+            <p class="subtitle">
+                Lisp like programming language that can give type annotation for
+                gradual typing
+            </p>
+            <button id="start" class="button is-link">Learn more</button>
+
+            <div id="newSection">
+                <div class="box">
+                    <p class="subtitle">Playground Console</p>
+                    <div id="inputing">
+                        <input class="input" value="" id="repl" />
+                        <button class="button" id="sample">Sample</button>
+                    </div>
+                    <pre class="hidden"><code id="result"></code></pre>
+                </div>
+
+                <a href="https://github.com/gradia-lang/gradia"
+                    >Repository</a
+                >
+                <a href="https://gradia-lang.github.io/s-block/"
+                    >S-Block</a
+                >
+                <a href="https://gradia-lang.github.io/grab/"
+                    >Graboratory</a
+                >
+            </div>
+        </div>
+    </body>
+
+    <script>
+        document.getElementById("start").onclick = function () {
+            const mainSection = document.getElementById("main");
+            const newSection = document.getElementById("newSection");
+            const startButton = this;
+            const duration = 1500;
+
+            newSection.classList.remove("hidden");
+            startButton.style.cursor = "default";
+            startButton.onclick = null;
+
+            anime({
+                targets: newSection,
+                translateY: ["100vh", "0"],
+                opacity: [0, 1],
+                duration: duration,
+                easing: "easeInOutQuad",
+            });
+
+            anime({
+                targets: mainSection,
+                top: ["17vh", "0vh"],
+                duration: duration,
+                easing: "easeInOutQuad",
+            });
+
+            anime({
+                targets: startButton,
+                opacity: [1, 0],
+                duration: duration,
+                easing: "easeInOutQuad",
+            });
+
+            let gradia = new Gradia();
+            document
+                .getElementById("repl")
+                .addEventListener("keydown", function (event) {
+                    if (event.key == "Enter") {
+                        let result = gradia.eval(this.value);
+                        if (result != "") {
+                            let elm = document.getElementById("result");
+                            elm.parentElement.classList.remove("hidden");
+                            elm.innerText = result.replace(/\n/g, " ");
+                            this.value = "";
+                        }
+                    }
+                });
+
+            let array = [
+                "(define '(x2 n) '(* n 2)) (map '(2 4 7) x2)",
+                "(define '(inc i:number) '(+ i 1)) (inc 3)",
+                "(filter (range 10) (lambda '(n) '(= 0 (% n 2))))",
+            ];
+            document
+                .getElementById("sample")
+                .addEventListener("click", function () {
+                    document.getElementById("repl").value =
+                        array[Math.floor(Math.random() * array.length)];
+                });
+        };
+    </script>
+
+    <style>
+        pre {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 1vh;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 1rem;
+            color: #333;
+        }
+
+        body {
+            overflow: hidden;
+            position: relative;
+            user-select: none;
+            font-family: monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(white, aliceblue);
+        }
+
+        #main {
+            position: absolute;
+            top: 17%;
+            text-align: center;
+            width: 100%;
+            padding: 10%;
+        }
+
+        #newSection {
+            transform: translateY(100vh);
+            background-color: transparent;
+            opacity: 0;
+            height: 50%;
+        }
+
+        input {
+            font-family: monospace;
+            margin-right: 1vh;
+        }
+
+        p {
+            font-size: x-large;
+        }
+
+        pre {
+            margin-top: 1vh;
+            user-select: text;
+            text-align: left;
+            overflow: scroll;
+            height: 1%;
+            max-height: 1%;
+            cursor: text;
+        }
+
+        ::selection {
+            background-color: black;
+            color: white;
+        }
+
+        a {
+            cursor: zoom-in;
+            margin: 1vh;
+        }
+
+        a:hover {
+            color: blueviolet;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .title {
+            font-size: 10vh;
+        }
+
+        #inputing {
+            display: flex;
+        }
+    </style>
+</html>
