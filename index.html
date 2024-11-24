@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
 
     <style>
@@ -32,6 +33,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">Code</a></li>
                 <li class="nav-item"><a class="nav-link" href="#tools">Tools</a></li>
             </ul>
         </div>
@@ -59,6 +61,25 @@
         Implemented by Rust, and it's splited core interpreter logic and user-interface. So, Gradia is run on browser using WASM too!<br>
         Have a happy hacking of fantastic Gradia programming world!
     </p>
+</section>
+
+<!-- Projects Section -->
+<section id="code" class="container my-5">
+    <h2 class="section-title">Code</h2>
+    <p>This sample code is to solve FizzBuzz problem in Gradia. Ins't it cool?</p>
+    <textarea id="editor" class="editor">
+(define '(fizzbuzz i:number)
+  '(if (= 0 (% i 15)):bool
+    "FizzBuzz":string
+    '(if (= 0 (% i 3)):bool
+      "Fizz":string
+       '(if (= 0 (% i 5)):bool
+         "Buzz":string
+         '(cast i "string")))))
+
+(join (map (range 1 101):list 
+  fizzbuzz:function):list " ":string)
+    </textarea>
 </section>
 
 <!-- Projects Section -->
@@ -102,18 +123,17 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
 
 <script>
     // Function to get the latest commit of a GitHub repository
     async function getLatestCommit(token = null) {
         const url = `https://api.github.com/repos/gradia-lang/gradia/commits`;
 
-        const headers = token ? { 
-            Authorization: `token ${token}` 
-        } : {};
-
         try {
-            const response = await fetch(url, { headers });
+            const response = await fetch(url, {});
 
             if (!response.ok) {
                 throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -128,24 +148,33 @@
             const latestCommit = commits[0];
             console.log('Latest Commit:', latestCommit);
 
-            console.log('Latest Commit SHA:', latestCommit.sha);
-            console.log('Commit Message:', latestCommit.commit?.message ?? 'No commit message');
-            console.log('Author Name:', latestCommit.commit?.author?.name ?? 'Unknown');
-
             let elm = document.getElementById("update");
             elm.innerHTML = ""; // Clear
+
             let link = document.createElement("a");
             link.href = latestCommit.html_url;
             link.innerText = latestCommit.commit?.message;
+
             elm.appendChild(link);
 
-            return latestCommit; // Contains detailed commit data
         } catch (error) {
             console.error('Failed to fetch commits:', error);
             return null;
         }
     }
     getLatestCommit();
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const area = document.getElementById("editor");
+        const editor = CodeMirror.fromTextArea(area, {
+            mode: "clojure",
+            theme: "cobalt",
+            lineNumbers: true,
+            indentUnit: 4
+        });
+    });
 </script>
 
 </body>
