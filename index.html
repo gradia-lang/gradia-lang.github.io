@@ -1,181 +1,308 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gradia</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gradia</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap"
+            rel="stylesheet"
+        />
 
-    <style>
-        /* Custom styling for the site */
-        .project-card { box-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.1); height: 500px; margin-bottom: 10px; }
-        .card-text { height: 3lh; } .section-title { border-bottom: 1px solid rgba(0, 139, 139, 0.2); margin-bottom: 20px; }
-        .card-img-top { height: 300px; object-fit: cover; max-height: 300px; overflow: hidden }
-        h1 { font-size: 60px; padding: 0; margin: 0; margin-left: 10px; } .btn { opacity: 0.5 }
-        .footer { background-color: lightblue; opacity: 0.7; color: black; padding: 20px 0; text-align: center; }
-        .title { font-size: 80px;  display: flex;} #icon { height: 1em; } pre {  font-family: 'Klee One', cursive; }
-        body { background: linear-gradient(to bottom, white, aliceblue); font-family: 'Klee One', cursive; font-size: larger;}
-    </style>
-</head>
-<body>
+        <style>
+            /* Custom styling for the site */
+            .project-card {
+                box-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.1);
+                height: 500px;
+                margin-bottom: 10px;
+            }
+            .card-text {
+                height: 3lh;
+            }
+            .section-title {
+                border-bottom: 1px solid rgba(0, 139, 139, 0.2);
+                margin-bottom: 20px;
+            }
+            .card-img-top {
+                height: 300px;
+                object-fit: cover;
+                max-height: 300px;
+                overflow: hidden;
+            }
+            h1 {
+                font-size: 60px;
+                padding: 0;
+                margin: 0;
+                margin-left: 10px;
+            }
+            .btn {
+                opacity: 0.5;
+            }
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-custom">
-    <div class="container">
-        <a class="navbar-brand" href="#">Gradia Project</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">Code</a></li>
-                <li class="nav-item"><a class="nav-link" href="#tools">Tools</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+            #result {
+                user-select: text;
+                text-align: left;
+                overflow: scroll;
+                height: 1%;
+                max-height: 1%;
+                cursor: text;
+                margin-bottom: 0;
+            }
+            .footer {
+                background-color: lightblue;
+                opacity: 0.7;
+                color: black;
+                padding: 20px 0;
+                text-align: center;
+            }
+            .title {
+                font-size: 80px;
+                display: flex;
+            }
+            #icon {
+                height: 1em;
+            }
+            #result {
+                background-color: #f5f5f5;
+                padding: 1rem;
+                overflow-x: auto;
+            }
+            footer {
+                text-align: center;
+                font-family: "Klee One", cursive;
+            }
+            body {
+                background: linear-gradient(to bottom, white, aliceblue);
+                font-family: "Klee One", cursive;
+                font-size: larger;
+            }
+            #editor {
+                text-align: start;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="container">
+                <a class="navbar-brand" href="#">Gradia Project</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">Code</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tools">Tools</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-<!-- Hero Section -->
-<section class="hero">
-    <div class="container">
-        <div class="title">
-            <img src="icon.png" alt="Icon" id="icon">
-            <h1>Gradia</h1>
-        </div>
-        <p>Lisp like programming language that can give type annotation for gradual typing</p>
-        <a href="https://github.com/gradia-lang/gradia" class="btn btn-secondary"><i class="fab fa-github"></i> GitHub</a>
-        <span id="update"></span>
-    </div>
-</section>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="title">
+                    <img src="icon.png" alt="Icon" id="icon" />
+                    <h1>Gradia</h1>
+                </div>
+                <p>
+                    Lisp like programming language that can give type annotation
+                    for gradual typing
+                </p>
+                <a
+                    href="https://github.com/gradia-lang/gradia"
+                    class="btn btn-secondary"
+                    ><i class="fab fa-github"></i> GitHub</a
+                >
+                <span id="update"></span>
+            </div>
+        </section>
 
-<!-- About Section -->
-<section id="about" class="container my-5">
-    <h2 class="section-title">About</h2>
-    <p>
-        Gradia name's origin is from "Gradual typing". So, Gradia adopts gradual way as type system. It improves trustability<br>
-        Implemented by Rust, and it's splited core interpreter logic and user-interface. So, Gradia is run on browser using WASM too!<br>
-        Have a happy hacking of fantastic Gradia programming world!
-    </p>
-</section>
+        <!-- About Section -->
+        <section id="about" class="container my-5">
+            <h2 class="section-title">About</h2>
+            <p>
+                Gradia name's origin is from "Gradual typing". So, Gradia adopts
+                gradual way as type system. It improves trustability<br />
+                Implemented by Rust, and it's splited core interpreter logic and
+                user-interface. So, Gradia is run on browser using WASM too!<br />
+                Have a happy hacking of fantastic Gradia programming world!
+            </p>
+        </section>
 
-<!-- Projects Section -->
-<section id="code" class="container my-5">
-    <h2 class="section-title">Code</h2>
-    <p>This sample code is to solve FizzBuzz problem in Gradia. Ins't it cool?</p>
-    <textarea id="editor" class="editor">
+        <!-- Projects Section -->
+        <section id="code" class="container my-5">
+            <h2 class="section-title">Code</h2>
+            <div style="display: flex; align-items: baseline;">
+                <span id="run" class="btn btn-primary">Run</span>
+                <p>&MediumSpace; This sample code is to solve FizzBuzz problem in Gradia. Isn't it cool?</p>
+            </div>
+
+            <textarea id="editor">
 (define '(fizzbuzz i:number)
-  '(if (= 0 (% i 15)):bool
-    "FizzBuzz":string
-    '(if (= 0 (% i 3)):bool
-      "Fizz":string
-       '(if (= 0 (% i 5)):bool
-         "Buzz":string
-         '(cast i "string")))))
+    '(cond
+        '((= 0 (% i 15)) "FizzBuzz")
+        '((= 0 (% i 3)) "Fizz")
+        '((= 0 (% i 5)) "Buzz")
+        '(true i)))
 
-(join (map (range 1 101):list 
-  fizzbuzz:function):list " ":string)
-    </textarea>
-</section>
+(for (range 1 101)
+    (lambda '(i) '(print (fizzbuzz i) new-line)))
+            
+            </textarea>
+            <pre id="result">&MediumSpace; </pre>
+        </section>
 
-<!-- Projects Section -->
-<section id="tools" class="container my-5">
-    <h2 class="section-title">Tools</h2>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card project-card">
-                <img src="s-block.png" class="card-img-top" alt="Project Image">
-                <div class="card-body">
-                    <h5 class="card-title">S-Block</h5>
-                    <p class="card-text">
-                        Visual environment that expresses program using colorful block.<br>
-                        The concept is "Even primary students can use". 
-                    </p>
-                    <a href="https://gradia-lang.github.io/s-block" class="btn btn-outline-primary">Access</a>
+        <!-- Projects Section -->
+        <section id="tools" class="container my-5">
+            <h2 class="section-title">Tools</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card project-card">
+                        <img
+                            src="s-block.png"
+                            class="card-img-top"
+                            alt="Project Image"
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">S-Block</h5>
+                            <p class="card-text">
+                                Visual environment that expresses program using
+                                colorful block.<br />
+                                The concept is "Even primary students can use".
+                            </p>
+                            <a
+                                href="https://gradia-lang.github.io/s-block"
+                                class="btn btn-outline-primary"
+                                >Access</a
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card project-card">
+                        <img
+                            src="grab.png"
+                            class="card-img-top"
+                            alt="Project Image"
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">Graboratory</h5>
+                            <p class="card-text">
+                                Notebook apps that can run Gradia code
+                                interactive.<br />
+                                And can write markdown text, useful for creating
+                                reports
+                            </p>
+                            <a
+                                href="https://gradia-lang.github.io/grab"
+                                class="btn btn-outline-primary"
+                                >Access</a
+                            >
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card project-card">
-                <img src="grab.png" class="card-img-top" alt="Project Image">
-                <div class="card-body">
-                    <h5 class="card-title">Graboratory</h5>
-                    <p class="card-text">
-                        Notebook apps that can run Gradia code interactive.<br>
-                        And can write markdown text, useful for creating reports
-                    </p>
-                    <a href="https://gradia-lang.github.io/grab" class="btn btn-outline-primary">Access</a>
-                </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                &copy; 2024 梶塚太智.  All rights reserved
             </div>
-        </div>
-    </div>
-</section>
+        </footer>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <pre>&copy; 2024 梶塚太智.  All rights reserved</pre>
-    </div>
-</footer>
+        <script src="https://gradia-lang.github.io/gradia.js" type="module"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/scheme/scheme.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
+        <script>
+            // Function to get the latest commit of a GitHub repository
+            async function getLatestCommit(token = null) {
+                const url = `https://api.github.com/repos/gradia-lang/gradia/commits`;
 
-<script>
-    // Function to get the latest commit of a GitHub repository
-    async function getLatestCommit(token = null) {
-        const url = `https://api.github.com/repos/gradia-lang/gradia/commits`;
+                try {
+                    const response = await fetch(url, {});
 
-        try {
-            const response = await fetch(url, {});
+                    if (!response.ok) {
+                        throw new Error(
+                            `Error: ${response.status} ${response.statusText}`,
+                        );
+                    }
 
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status} ${response.statusText}`);
+                    const commits = await response.json();
+                    if (commits.length === 0) {
+                        console.log("No commits found.");
+                        return null;
+                    }
+
+                    const latestCommit = commits[0];
+                    console.log("Latest Commit:", latestCommit);
+
+                    let elm = document.getElementById("update");
+                    elm.innerHTML = ""; // Clear
+
+                    let link = document.createElement("a");
+                    link.href = latestCommit.html_url;
+                    link.innerText = latestCommit.commit?.message;
+
+                    elm.appendChild(link);
+                } catch (error) {
+                    console.error("Failed to fetch commits:", error);
+                    return null;
+                }
             }
+            getLatestCommit();
+        </script>
 
-            const commits = await response.json();
-            if (commits.length === 0) {
-                console.log('No commits found.');
-                return null;
-            }
+        <script>
+            let editor;
 
-            const latestCommit = commits[0];
-            console.log('Latest Commit:', latestCommit);
-
-            let elm = document.getElementById("update");
-            elm.innerHTML = ""; // Clear
-
-            let link = document.createElement("a");
-            link.href = latestCommit.html_url;
-            link.innerText = latestCommit.commit?.message;
-
-            elm.appendChild(link);
-
-        } catch (error) {
-            console.error('Failed to fetch commits:', error);
-            return null;
-        }
-    }
-    getLatestCommit();
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const area = document.getElementById("editor");
-        const editor = CodeMirror.fromTextArea(area, {
-            mode: "clojure",
-            theme: "cobalt",
-            lineNumbers: true,
-            indentUnit: 4
-        });
-    });
-</script>
-
-</body>
+            document.addEventListener("DOMContentLoaded", function () {
+                let area = document.getElementById("editor");
+                editor = CodeMirror.fromTextArea(area, {
+                    mode: "scheme",
+                    theme: "cobalt",
+                    lineNumbers: true,
+                    indentUnit: 4,
+                });
+                
+                let runButton = document.getElementById("run");
+                runButton.onclick = function() {
+                    let result = document.getElementById("result");
+                    result.innerHTML= run_gradia(editor.getValue());
+                };
+            });
+        </script>
+    </body>
 </html>
