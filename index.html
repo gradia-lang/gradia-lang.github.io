@@ -174,8 +174,7 @@
         '((= 0 (% i 5)) "Buzz")
         '(true i)))
 
-(for (range 1 101)
-    (lambda '(i) '(print (fizzbuzz i) new-line)))
+(join (map (range 1 101) fizzbuzz) " ")
             
             </textarea>
             <pre id="result">&MediumSpace; </pre>
@@ -300,7 +299,8 @@
                 let runButton = document.getElementById("run");
                 runButton.onclick = function() {
                     let result = document.getElementById("result");
-                    result.innerHTML= run_gradia(editor.getValue());
+                    let gradia = new Gradia();
+                    result.textContent = gradia.eval(editor.getValue());
                 };
             });
         </script>
